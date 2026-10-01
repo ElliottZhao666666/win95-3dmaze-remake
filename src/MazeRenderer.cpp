@@ -1,4 +1,5 @@
 #include "MazeRenderer.h"
+#include "MapProjection.h"
 #include "resource.h"
 #include <wincodec.h>
 #include <algorithm>
@@ -350,7 +351,8 @@ void MazeRenderer::buildMap(const maze::World& world) {
     const XMFLOAT4 goal{.12f, .43f, 1.f, 1.f};
     const XMFLOAT4 camera{.62f, .85f, 1.f, 1.f};
     auto point = [&](float x, float z, XMFLOAT4 color) {
-        return MapVertex{{-.94f + x * stepX, .9f - z * stepY}, color};
+        auto mapped = maze::projectMap(world.grid.size,x,z,stepX,stepY);
+        return MapVertex{{mapped.x,mapped.y}, color};
     };
     auto line = [&](float x1, float z1, float x2, float z2) {
         mapVertices_.push_back(point(x1,z1,walls)); mapVertices_.push_back(point(x2,z2,walls));
@@ -412,7 +414,7 @@ bool MazeRenderer::render(const maze::World& world, bool showMap) {
     context_->PSSetShader(pixelShader_.Get(),nullptr,0);
     context_->VSSetConstantBuffers(0,1,frameBuffer_.GetAddressOf());
     context_->PSSetSamplers(0,1,sampler_.GetAddressOf());
-    std::array<ID3D11ShaderResourceView*,8> views{};
+    std::array<ID3D11ShaderResourceView*,10> views{};
     for (size_t i=0;i<views.size();++i) views[i]=textures_[i].Get();
     context_->PSSetShaderResources(0,UINT(views.size()),views.data());
     UINT stride=sizeof(MazeVertex), offset=0;

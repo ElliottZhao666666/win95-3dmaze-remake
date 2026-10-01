@@ -55,6 +55,7 @@ add_executable(3dmaze WIN32
     src/main.cpp
     src/MazeLogic.cpp
     src/MazeLogic.h
+    src/MapProjection.h
     src/MazeRenderer.cpp
     src/MazeRenderer.h
     Resource.rc

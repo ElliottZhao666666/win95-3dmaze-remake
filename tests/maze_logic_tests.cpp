@@ -1,4 +1,5 @@
 #include "MazeLogic.h"
+#include "MapProjection.h"
 #include <cmath>
 #include <iostream>
 #include <queue>
@@ -62,6 +63,19 @@ int verifyTopology(const maze::Grid& grid) {
 
 int main() {
     try {
+        // For every heading, the overhead projection must have the same
+        // forward/right handedness as XMMatrixLookToLH in the 3D renderer.
+        for (int direction=0; direction<4; ++direction) {
+            float yaw=(direction-maze::east)*(maze::pi*.5f);
+            float fx=std::cos(yaw), fz=std::sin(yaw);
+            float rx=std::sin(yaw), rz=-std::cos(yaw);
+            auto center=maze::projectMap(16,8.5f,8.5f,.02f,.02f);
+            auto forward=maze::projectMap(16,8.5f+fx,8.5f+fz,.02f,.02f);
+            auto right=maze::projectMap(16,8.5f+rx,8.5f+rz,.02f,.02f);
+            float cross=(forward.x-center.x)*(right.y-center.y)-
+                        (forward.y-center.y)*(right.x-center.x);
+            require(cross<0.f,"minimap is mirrored relative to camera view");
+        }
         std::array<bool,4> optionalArtCombinations{};
         for (int size:{8,16,32}) for (uint32_t seed=1;seed<=12;++seed) {
             std::mt19937 random(seed);
