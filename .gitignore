@@ -1,0 +1,9 @@
+/Windows-95-3D-Maze-Screensaver/
+/build/
+/shader-bin/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+__pycache__/
+*.pyc

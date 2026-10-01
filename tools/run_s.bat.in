@@ -1,0 +1,2 @@
+@echo off
+"%~dp0Win95-3Dmaze-Remake.scr" /s

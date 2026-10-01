@@ -1,0 +1,85 @@
+#pragma code_page(65001)
+#include <winres.h>
+#include "resource.h"
+
+STRINGTABLE
+BEGIN
+    1 "Win95-3Dmaze-Remake"
+END
+
+IDD_SETTINGS DIALOGEX 0, 0, 430, 290
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Win95 3D迷宫重制版 — 迷宫设置"
+FONT 9, "Segoe UI", 400, 0, 1
+BEGIN
+    LTEXT           "Win95-3Dmaze-Remake", -1, 12, 9, 245, 15
+    GROUPBOX        "纹理材质", -1, 10, 29, 228, 126
+    LTEXT           "墙面(&W)", -1, 22, 49, 75, 17
+    LTEXT           "地板(&F)", -1, 22, 84, 75, 17
+    LTEXT           "天花板(&C)", -1, 22, 119, 75, 17
+    CONTROL         "", IDC_WALL_PREVIEW, "Static", SS_BITMAP | WS_BORDER, 111, 44, 81, 27
+    CONTROL         "", IDC_FLOOR_PREVIEW, "Static", SS_BITMAP | WS_BORDER, 111, 79, 81, 27
+    CONTROL         "", IDC_CEILING_PREVIEW, "Static", SS_BITMAP | WS_BORDER, 111, 114, 81, 27
+    CONTROL         "", -1, "msctls_updown32", WS_TABSTOP, 197, 44, 15, 27
+    CONTROL         "", -1, "msctls_updown32", WS_TABSTOP, 197, 79, 15, 27
+    CONTROL         "", -1, "msctls_updown32", WS_TABSTOP, 197, 114, 15, 27
+    GROUPBOX        "显示选项", -1, 247, 29, 173, 62
+    AUTOCHECKBOX    "迷宫图(&O)", IDC_SHOW_MAP, 259, 48, 105, 16, WS_TABSTOP
+    AUTOCHECKBOX    "全屏幕(&U)", IDC_FULL_SCREEN, 259, 68, 105, 16, WS_TABSTOP
+    GROUPBOX        "图像质量(&Q)", -1, 247, 96, 173, 59
+    COMBOBOX        IDC_QUALITY, 259, 118, 149, 70, CBS_DROPDOWNLIST | WS_TABSTOP | WS_VSCROLL
+    GROUPBOX        "迷宫大小(&S)", -1, 10, 163, 199, 61
+    LTEXT           "最小", -1, 22, 184, 31, 15
+    CONTROL         "", IDC_MAZE_SIZE, "msctls_trackbar32", WS_TABSTOP | 0x0001, 62, 181, 104, 29
+    LTEXT           "最大", -1, 171, 184, 30, 15
+    GROUPBOX        "速度调节(&V)", -1, 218, 163, 202, 61
+    LTEXT           "慢", -1, 230, 184, 19, 15
+    CONTROL         "", IDC_SPEED, "msctls_trackbar32", WS_TABSTOP | 0x0001, 253, 181, 127, 29
+    LTEXT           "快", -1, 385, 184, 19, 15
+    LTEXT           "© 2026 月半菌  ·  www.ybjun.com", -1, 12, 236, 266, 15
+    PUSHBUTTON      "关于(&A)...", IDC_ABOUT, 341, 233, 78, 20
+    DEFPUSHBUTTON   "确定", IDOK, 264, 261, 74, 21
+    PUSHBUTTON      "取消", IDCANCEL, 345, 261, 74, 21
+END
+
+1 VERSIONINFO
+FILEVERSION 1,0,0,0
+PRODUCTVERSION 1,0,0,0
+FILEFLAGSMASK 0x3fL
+FILEOS 0x40004L
+FILETYPE 0x1L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404B0"
+        BEGIN
+            VALUE "CompanyName", "月半菌"
+            VALUE "FileDescription", "Win95-3Dmaze-Remake"
+            VALUE "InternalName", "Win95-3Dmaze-Remake"
+            VALUE "LegalCopyright", "© 2026 月半菌"
+            VALUE "OriginalFilename", "Win95-3Dmaze-Remake.scr"
+            VALUE "ProductName", "Win95 3D迷宫重制版"
+            VALUE "ProductVersion", "1.0.0.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x0804, 1200
+    END
+END
+
+IDR_WALL    RCDATA "assets\\wall.png"
+IDR_FLOOR   RCDATA "assets\\floor.png"
+IDR_CEILING RCDATA "assets\\ceiling.png"
+IDR_PIC     RCDATA "assets\\pic.png"
+IDR_RAT     RCDATA "assets\\rat.png"
+IDR_FIN     RCDATA "assets\\fin.png"
+IDR_START   RCDATA "assets\\start2.png"
+IDR_GL      RCDATA "assets\\gl.png"
+IDR_DX      RCDATA "assets\\dx.jpg"
+IDR_YB      RCDATA "assets\\yb.jpg"
+
+IDR_MAZE_VS RCDATA "shader-bin\\maze_vs.cso"
+IDR_MAZE_PS RCDATA "shader-bin\\maze_ps.cso"
+IDR_MAP_VS  RCDATA "shader-bin\\map_vs.cso"
+IDR_MAP_PS  RCDATA "shader-bin\\map_ps.cso"
